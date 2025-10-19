@@ -146,7 +146,7 @@ function App() {
   const filteredMessages = messages.filter(
     (msg) =>
       (msg.type === "sent" && msg.to === recipientId) ||
-      (msg.type === "received" && msg.from === recipientId)
+      (msg.type === "received" && msg.from === recipientId),
   );
 
   const selectedUser = users.find((user) => user.id === recipientId);
@@ -327,9 +327,7 @@ function App() {
                 <h3 className="font-semibold text-secondary truncate">
                   Select a user to chat
                 </h3>
-                <p className="text-xs text-gray-400">
-                  Choose from the sidebar
-                </p>
+                <p className="text-xs text-gray-400">Choose from the sidebar</p>
               </div>
             </div>
           )}
@@ -381,9 +379,7 @@ function App() {
                   }`}
                 >
                   <p className="break-words">{msg.text}</p>
-                  <p className="text-xs text-right mt-1">
-                    {msg.timestamp}
-                  </p>
+                  <p className="text-xs text-right mt-1">{msg.timestamp}</p>
                 </div>
               </div>
             ))
@@ -399,9 +395,7 @@ function App() {
               onChange={(e) => setCurrentMessage(e.target.value)}
               onKeyPress={handleKeyPressMessage}
               placeholder={
-                recipientId
-                  ? "Type a message..."
-                  : "Select a user first..."
+                recipientId ? "Type a message..." : "Select a user first..."
               }
               disabled={!recipientId}
               className="flex-1 px-4 py-3 bg-base-200 border-2 border-base-300 rounded-xl focus:outline-none focus:border-primary transition-colors disabled:bg-gray-100 disabled:cursor-not-allowed text-gray-800 placeholder-gray-400"
