@@ -2,6 +2,8 @@
 
 This is a simple real-time chat application built with a Node.js backend and a React frontend.
 
+<img width="1920" height="1080" alt="Image" src="https://github.com/user-attachments/assets/616c3261-55fc-4a22-bb1f-3a19c2f0db28" />
+
 ## Features
 
 *   User authentication (login)
