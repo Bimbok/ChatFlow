@@ -6,14 +6,14 @@ const cors = require("cors");
 const app = express();
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://one-to-one-chat-app-two.vercel.app",
   }),
 );
 
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: "https://one-to-one-chat-app-two.vercel.app",
     methods: ["GET", "POST"],
   },
 });
