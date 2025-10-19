@@ -1,0 +1,201 @@
+<!doctype html>
+<html>
+  <head>
+    <title>One-to-One Chat</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        margin: 0;
+        padding-bottom: 3rem;
+        background-color: #f0f2f5;
+      }
+      #chat-container {
+        max-width: 800px;
+        margin: 20px auto;
+        display: flex;
+      }
+      #user-list {
+        width: 200px;
+        border-right: 1px solid #ddd;
+        padding: 10px;
+        background-color: #fff;
+      }
+      #user-list h3 {
+        margin-top: 0;
+      }
+      #user-list ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      #user-list li {
+        padding: 5px;
+        cursor: pointer;
+      }
+      #user-list li:hover,
+      #user-list li.selected {
+        background-color: #e9e9e9;
+      }
+      #main-chat {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      #messages {
+        list-style-type: none;
+        margin: 0;
+        padding: 0 20px;
+        flex-grow: 1;
+        overflow-y: auto;
+        background-color: #fff;
+      }
+      #messages li {
+        padding: 0.5rem 1rem;
+      }
+      #messages li.sent {
+        text-align: right;
+      }
+      #messages li.sent .msg-bubble {
+        background-color: #dcf8c6;
+      }
+      #messages li.received .msg-bubble {
+        background-color: #fff;
+        border: 1px solid #eee;
+      }
+      .msg-bubble {
+        display: inline-block;
+        padding: 10px 15px;
+        border-radius: 15px;
+        max-width: 70%;
+      }
+      #form {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 0.5rem;
+        display: flex;
+        border-top: 1px solid #ddd;
+      }
+      #input {
+        border: 1px solid #ccc;
+        padding: 0.75rem;
+        flex-grow: 1;
+        border-radius: 2rem;
+        margin-right: 0.5rem;
+      }
+      #form > button {
+        background: #0084ff;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        color: white;
+        border-radius: 2rem;
+        cursor: pointer;
+      }
+      #my-id {
+        padding: 10px;
+        background-color: #fff;
+        border-bottom: 1px solid #ddd;
+        font-size: 0.8em;
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="chat-container">
+      <div id="user-list">
+        <h3>Online Users</h3>
+        <ul id="users"></ul>
+      </div>
+      <div id="main-chat">
+        <div id="my-id">Your ID: <strong></strong></div>
+        <ul id="messages"></ul>
+        <form id="form" action="">
+          <input
+            id="input"
+            autocomplete="off"
+            placeholder="Type a message..."
+          /><button>Send</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+
+      const form = document.getElementById("form");
+      const input = document.getElementById("input");
+      const messages = document.getElementById("messages");
+      const userList = document.getElementById("users");
+      const myIdSpan = document.querySelector("#my-id strong");
+
+      let myId = "";
+      let recipientId = "";
+
+      // Listen for my own ID from the server
+      socket.on("your id", (id) => {
+        myId = id;
+        myIdSpan.textContent = myId;
+      });
+
+      // Listen for updates to the user list
+      socket.on("update users", (users) => {
+        userList.innerHTML = ""; // Clear the list
+        users.forEach((user) => {
+          if (user !== myId) {
+            const li = document.createElement("li");
+            li.textContent = user.substring(0, 8) + "..."; // Show a short version of the ID
+            li.dataset.id = user;
+            if (user === recipientId) {
+              li.classList.add("selected");
+            }
+            li.addEventListener("click", () => {
+              recipientId = user;
+              // Visually select the user
+              document
+                .querySelectorAll("#user-list li")
+                .forEach((el) => el.classList.remove("selected"));
+              li.classList.add("selected");
+            });
+            userList.appendChild(li);
+          }
+        });
+      });
+
+      // Handle form submission
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (input.value && recipientId) {
+          // Send the message to the server, specifying the recipient
+          socket.emit("private message", {
+            message: input.value,
+            to: recipientId,
+          });
+
+          // Display my own sent message
+          addMessage(input.value, "sent");
+
+          input.value = "";
+        } else if (!recipientId) {
+          alert("Please select a user to chat with!");
+        }
+      });
+
+      // Listen for incoming private messages
+      socket.on("private message", ({ message, from }) => {
+        // Only display if it's from the person I'm currently chatting with
+        if (from === recipientId) {
+          addMessage(message, "received");
+        }
+      });
+
+      function addMessage(message, type) {
+        const item = document.createElement("li");
+        item.classList.add(type); // 'sent' or 'received'
+        const bubble = document.createElement("div");
+        bubble.classList.add("msg-bubble");
+        bubble.textContent = message;
+        item.appendChild(bubble);
+        messages.appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight);
+      }
+    </script>
+  </body>
+</html>
