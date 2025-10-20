@@ -85,17 +85,19 @@ function App() {
 
   if (!isLoggedIn) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-violet-500 via-purple-500 to-pink-500 flex items-center justify-center p-4">
-        <div className="w-full max-w-md">
-          <div className="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-8 transform transition-all">
-            <div className="text-center mb-8">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-violet-500 to-purple-600 rounded-2xl mb-4 shadow-lg">
-                <Users className="w-8 h-8 text-white" />
+      <div className="min-h-screen bg-gradient-to-br from-violet-500 via-purple-500 to-pink-500 flex items-center justify-center p-4 sm:p-6 md:p-8">
+        <div className="lg:w-full max-w-sm sm:max-w-md">
+          <div className="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-6 sm:p-8 transform transition-all">
+            <div className="text-center mb-6 sm:mb-8">
+              <div className="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-violet-500 to-purple-600 rounded-2xl mb-4 shadow-lg">
+                <Users className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
               </div>
-              <h1 className="text-3xl font-bold text-gray-800 mb-2">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">
                 Welcome to ChatFlow
               </h1>
-              <p className="text-gray-600">Enter your name to start chatting</p>
+              <p className="text-gray-600 text-sm sm:text-base">
+                Enter your name to start chatting
+              </p>
             </div>
 
             <div className="space-y-4">
@@ -127,11 +129,13 @@ function App() {
     <div className="flex h-screen bg-gray-50 overflow-hidden">
       {/* Sidebar */}
       <div
-        className={`${isSidebarOpen ? "w-80" : "w-0"} md:w-80 bg-white border-r border-gray-200 flex flex-col transition-all duration-300 absolute md:relative z-20 h-full`}
+        className={`fixed inset-y-0 left-0 z-30 lg:w-50 sm:w-80 bg-white border-r border-gray-200 flex flex-col transform ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} transition-transform duration-300 ease-in-out md:relative md:translate-x-0`}
       >
-        <div className="p-6 bg-gradient-to-r from-violet-500 to-purple-600">
+        <div className="p-4 sm:p-6 bg-gradient-to-r from-violet-500 to-purple-600">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold text-white">ChatFlow</h2>
+            <h2 className="text-lg sm:text-xl font-bold text-white">
+              ChatFlow
+            </h2>
             <button
               onClick={() => setIsSidebarOpen(false)}
               className="md:hidden text-white hover:bg-white/20 p-1 rounded-lg transition-colors"
@@ -152,7 +156,7 @@ function App() {
         <div className="flex-1 overflow-y-auto">
           <div className="p-4">
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-sm font-semibold text-gray-600 uppercase tracking-wide">
+              <h3 className="text-xs sm:text-sm font-semibold text-gray-600 uppercase tracking-wide">
                 Online Users
               </h3>
               <span className="bg-green-100 text-green-600 text-xs font-medium px-2 py-1 rounded-full">
@@ -211,9 +215,9 @@ function App() {
       </div>
 
       {/* Main Chat Area */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col md:ml-80">
         {/* Chat Header */}
-        <div className="bg-white border-b border-gray-200 px-6 py-4 flex items-center shadow-sm">
+        <div className="bg-white border-b border-gray-200 px-4 sm:px-6 py-3 sm:py-4 flex items-center shadow-sm">
           <button
             onClick={() => setIsSidebarOpen(true)}
             className="md:hidden mr-3 text-gray-600 hover:bg-gray-100 p-2 rounded-lg transition-colors"
@@ -223,11 +227,11 @@ function App() {
 
           {selectedUser ? (
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-violet-400 to-purple-500 flex items-center justify-center text-white font-bold">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-violet-400 to-purple-500 flex items-center justify-center text-white font-bold">
                 {selectedUser.name.charAt(0).toUpperCase()}
               </div>
               <div>
-                <h3 className="font-semibold text-gray-800">
+                <h3 className="font-semibold text-gray-800 text-sm sm:text-base">
                   {selectedUser.name}
                 </h3>
                 <div className="flex items-center space-x-1">
@@ -238,11 +242,11 @@ function App() {
             </div>
           ) : (
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gray-200 flex items-center justify-center">
                 <Users className="w-5 h-5 text-gray-400" />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-500">
+                <h3 className="font-semibold text-gray-500 text-sm sm:text-base">
                   Select a user to chat
                 </h3>
                 <p className="text-xs text-gray-400">Choose from the sidebar</p>
@@ -252,17 +256,17 @@ function App() {
         </div>
 
         {/* Messages Area */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-gradient-to-b from-gray-50 to-white">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 bg-gradient-to-b from-gray-50 to-white">
           {!recipientId ? (
             <div className="flex items-center justify-center h-full">
               <div className="text-center">
-                <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-violet-100 to-purple-100 rounded-full mb-4">
-                  <Send className="w-10 h-10 text-violet-500" />
+                <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-violet-100 to-purple-100 rounded-full mb-4">
+                  <Send className="w-8 h-8 sm:w-10 sm:h-10 text-violet-500" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-700 mb-2">
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-700 mb-2">
                   Start a Conversation
                 </h3>
-                <p className="text-gray-500">
+                <p className="text-gray-500 text-sm sm:text-base">
                   Select a user from the sidebar to begin chatting
                 </p>
               </div>
@@ -270,13 +274,13 @@ function App() {
           ) : filteredMessages.length === 0 ? (
             <div className="flex items-center justify-center h-full">
               <div className="text-center">
-                <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-violet-100 to-purple-100 rounded-full mb-4">
-                  <Send className="w-10 h-10 text-violet-500" />
+                <div className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-violet-100 to-purple-100 rounded-full mb-4">
+                  <Send className="w-8 h-8 sm:w-10 sm:h-10 text-violet-500" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-700 mb-2">
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-700 mb-2">
                   No messages yet
                 </h3>
-                <p className="text-gray-500">
+                <p className="text-gray-500 text-sm sm:text-base">
                   Send a message to start the conversation
                 </p>
               </div>
@@ -288,13 +292,13 @@ function App() {
                 className={`flex ${msg.type === "sent" ? "justify-end" : "justify-start"} animate-fadeIn`}
               >
                 <div
-                  className={`max-w-xs md:max-w-md lg:max-w-lg px-4 py-3 rounded-2xl shadow-sm ${
+                  className={`max-w-xs sm:max-w-md md:max-w-lg px-4 py-3 rounded-2xl shadow-sm ${
                     msg.type === "sent"
                       ? "bg-gradient-to-r from-violet-500 to-purple-600 text-white rounded-br-none"
                       : "bg-white text-gray-800 rounded-bl-none border border-gray-200"
                   }`}
                 >
-                  <p className="break-words">{msg.text}</p>
+                  <p className="break-words text-sm sm:text-base">{msg.text}</p>
                 </div>
               </div>
             ))
@@ -302,8 +306,8 @@ function App() {
         </div>
 
         {/* Message Input */}
-        <div className="bg-white border-t border-gray-200 p-4">
-          <div className="flex items-center space-x-3">
+        <div className="bg-white border-t border-gray-200 p-2 sm:p-4">
+          <div className="flex items-center space-x-2 sm:space-x-3">
             <input
               type="text"
               value={currentMessage}
@@ -313,7 +317,7 @@ function App() {
                 recipientId ? "Type a message..." : "Select a user first..."
               }
               disabled={!recipientId}
-              className="flex-1 px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-violet-500 transition-colors disabled:bg-gray-100 disabled:cursor-not-allowed text-gray-800 placeholder-gray-400"
+              className="flex-1 px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-violet-500 transition-colors disabled:bg-gray-100 disabled:cursor-not-allowed text-gray-800 placeholder-gray-400 text-sm sm:text-base"
             />
             <button
               onClick={handleSendMessage}
