@@ -71,6 +71,10 @@ io.on("connection", (socket) => {
   });
 });
 
+app.get("/", (req, res) => {
+  res.send("SERVER IS UP!");
+});
+
 server.listen(PORT, () => {
   console.log(`Server is listening on http://localhost:${PORT}`);
 });
