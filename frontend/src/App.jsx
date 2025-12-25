@@ -333,7 +333,7 @@ function App() {
                 filteredMessages.map((msg, index) => (
                   <div
                     key={index}
-                    className={`flex w-full ${msg.type === "sent" ? "justify-end" : "justify-start"}`}
+                    className={`flex flex-row w-full ${msg.type === "sent" ? "justify-end" : "justify-start"}`}
                   >
                     <div
                       className={`max-w-[75%] md:max-w-[60%] px-4 py-3 rounded-2xl shadow-sm text-sm md:text-base break-words ${
