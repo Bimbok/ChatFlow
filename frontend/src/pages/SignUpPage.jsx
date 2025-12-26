@@ -122,9 +122,9 @@ const SignUpPage = () => {
           <div className="text-center text-gray-600 dark:text-gray-400">
             <p>
               Already have an account?{" "}
-              <button onClick={() => window.location.href='/login'} className="link link-primary text-primary-600 dark:text-primary-400 font-medium hover:underline">
+              <Link to="/login" className="link link-primary text-primary-600 dark:text-primary-400 font-medium hover:underline">
                 Sign in
-              </button>
+              </Link>
             </p>
           </div>
         </div>

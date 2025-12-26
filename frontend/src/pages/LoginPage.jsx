@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuthStore } from "../store/useAuthStore";
 import { MessageSquare, Mail, Lock, Eye, EyeOff, Loader2 } from "lucide-react";
+import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const LoginPage = () => {
@@ -95,9 +96,9 @@ const LoginPage = () => {
           <div className="text-center text-gray-600 dark:text-gray-400">
             <p>
               Don't have an account?{" "}
-              <button onClick={() => window.location.href='/signup'} className="link link-primary text-primary-600 dark:text-primary-400 font-medium hover:underline">
+              <Link to="/signup" className="link link-primary text-primary-600 dark:text-primary-400 font-medium hover:underline">
                 Create account
-              </button>
+              </Link>
             </p>
           </div>
         </div>
