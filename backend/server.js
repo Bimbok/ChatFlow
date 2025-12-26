@@ -19,8 +19,8 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    // origin: process.env.FRONTEND_URL || "http://localhost:5173",
-    origin: "https://one-to-one-chat-app-two.vercel.app",
+    origin: process.env.FRONTEND_URL || "http://localhost:5173",
+    // origin: "https://one-to-one-chat-app-two.vercel.app",
 
     credentials: true,
   }),
