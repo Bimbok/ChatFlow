@@ -11,7 +11,6 @@ const messageRoutes = require("./src/routes/message.route");
 
 dotenv.config();
 
-const app = express();
 const PORT = process.env.PORT || 3000;
 const __dirname_backend = path.resolve();
 
