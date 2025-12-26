@@ -3,7 +3,6 @@ const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const path = require("path");
-import cors from "cors";
 const { app, server } = require("./src/lib/socket");
 const connectDB = require("./src/lib/db");
 const authRoutes = require("./src/routes/auth.route");
