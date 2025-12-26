@@ -11,8 +11,11 @@ const messageRoutes = require("./src/routes/message.route");
 
 dotenv.config();
 
+const app = express();
 const PORT = process.env.PORT || 3000;
 const __dirname_backend = path.resolve();
+
+app.set("trust proxy", 1); // Trust Render's load balancer
 
 app.use(express.json());
 app.use(cookieParser());
