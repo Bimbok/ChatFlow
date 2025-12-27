@@ -30,8 +30,8 @@ const Sidebar = () => {
       {/* Sidebar Header */}
       <div className="p-5 border-b border-gray-200 dark:border-gray-800">
         <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-lg">
-            <Users className="size-5 text-primary-600 dark:text-primary-400" />
+          <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+            <Users className="size-5 text-blue-600 dark:text-blue-400" />
           </div>
           <span className="font-bold text-lg hidden lg:block text-gray-900 dark:text-white">Messages</span>
         </div>
@@ -71,7 +71,7 @@ const Sidebar = () => {
               className={`
                 w-full p-4 flex items-center gap-4
                 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-all duration-200
-                ${selectedUser?._id === user._id ? "bg-primary-50 dark:bg-primary-900/20 border-r-4 border-primary-600" : "border-r-4 border-transparent"}
+                ${selectedUser?._id === user._id ? "bg-blue-50 dark:bg-blue-900/20 border-r-4 border-blue-600" : "border-r-4 border-transparent"}
               `}
             >
               {/* Avatar section */}

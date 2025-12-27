@@ -25,8 +25,8 @@ const LoginPage = () => {
         <div className="w-full max-w-md space-y-8">
           <div className="text-center mb-8">
             <div className="flex flex-col items-center gap-2 group">
-              <div className="size-12 rounded-xl bg-primary-100 dark:bg-primary-900/50 flex items-center justify-center group-hover:bg-primary-200 dark:group-hover:bg-primary-900 transition-colors">
-                <MessageSquare className="size-6 text-primary-600 dark:text-primary-400" />
+              <div className="size-12 rounded-xl bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center group-hover:bg-blue-200 dark:group-hover:bg-blue-900 transition-colors">
+                <MessageSquare className="size-6 text-blue-600 dark:text-blue-400" />
               </div>
               <h1 className="text-2xl font-bold mt-2 text-gray-900 dark:text-white">Welcome Back</h1>
               <p className="text-gray-500 dark:text-gray-400">Sign in to your account</p>
@@ -44,7 +44,7 @@ const LoginPage = () => {
                 </div>
                 <input
                   type="email"
-                  className={`w-full pl-10 pr-3 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-colors text-gray-900 dark:text-white placeholder-gray-400`}
+                  className={`w-full pl-10 pr-3 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-colors text-gray-900 dark:text-white placeholder-gray-400`}
                   placeholder="you@example.com"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -62,7 +62,7 @@ const LoginPage = () => {
                 </div>
                 <input
                   type={showPassword ? "text" : "password"}
-                  className={`w-full pl-10 pr-3 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition-colors text-gray-900 dark:text-white placeholder-gray-400`}
+                  className={`w-full pl-10 pr-3 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-colors text-gray-900 dark:text-white placeholder-gray-400`}
                   placeholder="••••••••"
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
@@ -81,7 +81,7 @@ const LoginPage = () => {
               </div>
             </div>
 
-            <button type="submit" className="w-full btn btn-primary py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors disabled:opacity-50" disabled={isLoggingIn}>
+            <button type="submit" className="w-full btn btn-primary py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-colors disabled:opacity-50" disabled={isLoggingIn}>
               {isLoggingIn ? (
                 <>
                   <Loader2 className="size-5 animate-spin inline mr-2" />
@@ -96,7 +96,7 @@ const LoginPage = () => {
           <div className="text-center text-gray-600 dark:text-gray-400">
             <p>
               Don't have an account?{" "}
-              <Link to="/signup" className="link link-primary text-primary-600 dark:text-primary-400 font-medium hover:underline">
+              <Link to="/signup" className="link link-primary text-blue-600 dark:text-blue-400 font-medium hover:underline">
                 Create account
               </Link>
             </p>
@@ -105,7 +105,7 @@ const LoginPage = () => {
       </div>
 
        {/* Right Side - Image/Pattern */}
-       <div className="hidden lg:flex items-center justify-center bg-primary-50 dark:bg-gray-800 p-12">
+       <div className="hidden lg:flex items-center justify-center bg-blue-50 dark:bg-gray-800 p-12">
         <div className="max-w-md text-center">
             <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">Welcome Back!</h2>
             <p className="text-gray-600 dark:text-gray-300">Sign in to continue your conversations and catch up with your friends.</p>

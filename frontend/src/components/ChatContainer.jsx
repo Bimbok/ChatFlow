@@ -63,7 +63,7 @@ const ChatContainer = () => {
                 <div
                   className={`px-4 py-2.5 rounded-2xl shadow-sm text-sm sm:text-base break-words ${
                     isSentByMe
-                      ? "bg-primary-600 text-white rounded-br-none"
+                      ? "bg-blue-600 text-white rounded-br-none"
                       : "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-bl-none border border-gray-200 dark:border-gray-700"
                   }`}
                 >

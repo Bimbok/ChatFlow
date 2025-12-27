@@ -12,7 +12,7 @@ const Avatar = ({ user, size = "size-12" }) => {
           className="w-full h-full object-cover"
         />
       ) : (
-        <div className="w-full h-full bg-primary-100 dark:bg-primary-900/50 flex items-center justify-center text-primary-600 dark:text-primary-300 font-bold select-none">
+        <div className="w-full h-full bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center text-blue-600 dark:text-blue-300 font-bold select-none">
           {getInitials(user.fullName)}
         </div>
       )}
