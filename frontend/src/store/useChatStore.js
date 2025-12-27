@@ -44,18 +44,38 @@ export const useChatStore = create((set, get) => ({
   },
 
   subscribeToMessages: () => {
-    const { selectedUser } = get();
-    if (!selectedUser) return;
-
     const socket = useAuthStore.getState().socket;
 
     socket.on("newMessage", (newMessage) => {
-      const isMessageSentFromSelectedUser = newMessage.senderId === selectedUser._id;
-      if (!isMessageSentFromSelectedUser) return;
+      const { selectedUser } = get();
+      const isMessageSentFromSelectedUser = selectedUser?._id === newMessage.senderId;
 
-      set({
-        messages: [...get().messages, newMessage],
-      });
+      if (isMessageSentFromSelectedUser) {
+        set({
+          messages: [...get().messages, newMessage],
+        });
+      } else {
+        const sound = new Audio("/notification.mp3");
+        sound.play();
+
+        if (Notification.permission === "granted") {
+          new Notification("New Message", {
+            body: `New message from ${
+              get().users.find((u) => u._id === newMessage.senderId)?.fullName || "User"
+            }`,
+            icon: "/logo.png",
+          });
+        }
+
+        set({
+          users: get().users.map((user) => {
+            if (user._id === newMessage.senderId) {
+              return { ...user, unreadCount: (user.unreadCount || 0) + 1 };
+            }
+            return user;
+          }),
+        });
+      }
     });
   },
 
@@ -65,4 +85,20 @@ export const useChatStore = create((set, get) => ({
   },
 
   setSelectedUser: (selectedUser) => set({ selectedUser }),
+
+  markMessagesAsRead: async (id) => {
+    try {
+      await axiosInstance.put(`/messages/mark-read/${id}`);
+      set({
+        users: get().users.map((user) => {
+          if (user._id === id) {
+            return { ...user, unreadCount: 0 };
+          }
+          return user;
+        }),
+      });
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to mark messages as read");
+    }
+  },
 }));

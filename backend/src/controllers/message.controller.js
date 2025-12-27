@@ -7,7 +7,22 @@ const getUsersForSidebar = async (req, res) => {
     const loggedInUserId = req.user._id;
     const filteredUsers = await User.find({ _id: { $ne: loggedInUserId } }).select("-password");
 
-    res.status(200).json(filteredUsers);
+    const unreadMessages = await Message.find({
+      receiverId: loggedInUserId,
+      isRead: false,
+    });
+
+    const unreadCounts = {};
+    unreadMessages.forEach((msg) => {
+      unreadCounts[msg.senderId] = (unreadCounts[msg.senderId] || 0) + 1;
+    });
+
+    const usersWithUnread = filteredUsers.map((user) => ({
+      ...user.toObject(),
+      unreadCount: unreadCounts[user._id] || 0,
+    }));
+
+    res.status(200).json(usersWithUnread);
   } catch (error) {
     console.error("Error in getUsersForSidebar: ", error.message);
     res.status(500).json({ message: "Internal server error" });
@@ -63,4 +78,21 @@ const sendMessage = async (req, res) => {
   }
 };
 
-module.exports = { getUsersForSidebar, getMessages, sendMessage };
+const markMessagesAsRead = async (req, res) => {
+  try {
+    const { id: senderId } = req.params;
+    const myId = req.user._id;
+
+    await Message.updateMany(
+      { senderId: senderId, receiverId: myId, isRead: false },
+      { $set: { isRead: true } }
+    );
+
+    res.status(200).json({ message: "Messages marked as read" });
+  } catch (error) {
+    console.log("Error in markMessagesAsRead controller: ", error.message);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+module.exports = { getUsersForSidebar, getMessages, sendMessage, markMessagesAsRead };

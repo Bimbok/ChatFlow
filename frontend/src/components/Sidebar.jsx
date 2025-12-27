@@ -77,12 +77,20 @@ const Sidebar = () => {
               {/* Avatar section */}
               <div className="relative mx-auto lg:mx-0">
                 <Avatar user={user} size="size-12" />
-                
+
                 {onlineUsers.includes(user._id) && (
                   <span
                     className="absolute bottom-0 right-0 size-3 bg-green-500 
                     rounded-full ring-2 ring-white dark:ring-gray-900 shadow-sm"
                   />
+                )}
+                {user.unreadCount > 0 && (
+                  <span
+                    className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] 
+                    rounded-full size-4 flex items-center justify-center lg:hidden"
+                  >
+                    {user.unreadCount}
+                  </span>
                 )}
               </div>
 
@@ -92,6 +100,11 @@ const Sidebar = () => {
                   <h4 className="font-semibold text-gray-900 dark:text-white truncate">
                     {user.fullName}
                   </h4>
+                  {user.unreadCount > 0 && (
+                    <span className="bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full shadow-sm">
+                      {user.unreadCount}
+                    </span>
+                  )}
                 </div>
                 <div className="flex items-center gap-1">
                   <p className={`text-xs truncate ${onlineUsers.includes(user._id) ? "text-green-500 font-medium" : "text-gray-500"}`}>
